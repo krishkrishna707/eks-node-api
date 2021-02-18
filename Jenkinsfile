@@ -18,7 +18,6 @@ pipeline {
             steps {
                 sh '''
                     aws configure set region $REGION
-                    aws configure set region us-east-1
                     # $(aws ecr get-login --region $REGION --no-include-email)
                     docker push  jjino/node-api-server
                     echo "completed"
