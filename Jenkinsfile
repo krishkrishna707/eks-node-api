@@ -18,7 +18,7 @@ pipeline {
             steps {
                 sh '''
                     aws configure set region $REGION
-                    aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 456774515540.dkr.ecr.us-east-1.amazonaws.com
+                    $(aws ecr get-login --region $REGION --no-include-email)
                     docker push 456774515540.dkr.ecr.us-east-1.amazonaws.com/node:node
                     echo "completed"
                 '''
