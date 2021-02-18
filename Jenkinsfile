@@ -10,8 +10,6 @@ pipeline {
             steps {
                 sh '''
                     docker build -t jjino/node-api-server .
-                    aws configure set region us-east-1
-                    $(aws ecr get-login --region $REGION --no-include-email)
                     echo "completed"
                 '''
             } 
@@ -19,8 +17,9 @@ pipeline {
         stage('DOCKER IMAGE PUSH') {
             steps {
                 sh '''
-                    docker push -t jjino/node-api-server
-                    aws configure set region us-east-1
+                    aws configure set region $REGION
+                    # $(aws ecr get-login --region $REGION --no-include-email)
+                    docker push  jjino/node-api-server
                     echo "completed"
                 '''
             } 
@@ -29,6 +28,7 @@ pipeline {
             steps {
                 sh '''
                 aws sts get-caller-identity
+                # kubectl apply -f kube-deployment/deployment.yml
                 echo "completed"
                 '''
             } 
@@ -36,3 +36,4 @@ pipeline {
 
     }
 }
+
