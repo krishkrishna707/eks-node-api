@@ -25,13 +25,11 @@ pipeline {
             } 
         }
         stage('Build') {
-            steps {
-                sh '''
-                aws sts get-caller-identity
-                # kubectl apply -f kube-deployment/deployment.yml
-                echo "completed"
-                '''
-            } 
+            kubernetesDeploy(
+                configs: 'kube-deployment/deployment.yml',
+                kubeconfigId: 'kube8s',
+                enableConfigSubstitution: true
+            )  
         }
 
     }
