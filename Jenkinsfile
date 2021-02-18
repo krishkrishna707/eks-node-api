@@ -17,7 +17,11 @@ pipeline {
         stage('DOCKER IMAGE PUSH') {
             steps {
                 sh '''
+<<<<<<< HEAD
                     aws configure set region $REGION
+=======
+                    aws configure set region us-east-1
+>>>>>>> 444c1aed115dee3d58bf55ab234e371870ca272e
                     # $(aws ecr get-login --region $REGION --no-include-email)
                     docker push  jjino/node-api-server
                     echo "completed"
@@ -36,4 +40,7 @@ pipeline {
 
     }
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 444c1aed115dee3d58bf55ab234e371870ca272e
