@@ -9,7 +9,7 @@ pipeline {
         stage('DOCKER IMAGE BUILD') {
             steps {
                 sh '''
-                    docker build -t jjino/node-api-server .
+                    docker build -t 456774515540.dkr.ecr.us-east-1.amazonaws.com/node .
                     echo "completed"
                 '''
             } 
@@ -18,8 +18,8 @@ pipeline {
             steps {
                 sh '''
                     aws configure set region $REGION
-                    # $(aws ecr get-login --region $REGION --no-include-email)
-                    docker push  jjino/node-api-server
+                    aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 456774515540.dkr.ecr.us-east-1.amazonaws.com
+                    docker push 456774515540.dkr.ecr.us-east-1.amazonaws.com/node
                     echo "completed"
                 '''
             } 
